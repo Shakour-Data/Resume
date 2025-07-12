@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Resume Diagram</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(25, 35, 60, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        header {
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            padding: 25px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.2), transparent);
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .diagram-container {
+            padding: 30px;
+            position: relative;
+            min-height: 600px;
+        }
+
+        .platform {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(255, 65, 108, 0.4);
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            animation: pulse 3s infinite;
+        }
+
+        .platform:hover {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 65, 108, 0.6);
+        }
+
+        .platform i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .module {
+            position: absolute;
+            width: 220px;
+            height: 80px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 5;
+        }
+
+        .module:hover {
+            transform: scale(1.08);
+            z-index: 15;
+        }
+
+        .module-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .module-subtitle {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .scrum-module {
+            top: 180px;
+            left: 150px;
+            background: linear-gradient(135deg, #ffb347, #ffcc33);
+        }
+
+        .leitner-module {
+            top: 180px;
+            right: 150px;
+            background: linear-gradient(135deg, #00b09b, #96c93d);
+        }
+
+        .analytics-module {
+            top: 350px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #5c6bc0, #7986cb);
+        }
+
+        .feature {
+            position: absolute;
+            width: 160px;
+            height: 70px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            z-index: 3;
+        }
+
+        .feature:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 15;
+        }
+
+        .feature-title {
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+
+        .feature-subtitle {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        .user {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7f00ff, #e100ff);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(127, 0, 255, 0.4);
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .user:hover {
+            transform: translateX(-50%) scale(1.1);
+            box-shadow: 0 15px 35px rgba(127, 0, 255, 0.6);
+        }
+
+        .user i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .connections {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connection {
+            stroke: rgba(255, 255, 255, 0.3);
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 5;
+            animation: dash 20s linear infinite;
+        }
+
+        .connection-main {
+            stroke: rgba(255, 255, 255, 0.5);
+            stroke-width: 3;
+        }
+
+        .connection-highlight {
+            stroke: #00ffff;
+            stroke-width: 2;
+            filter: blur(3px);
+            opacity: 0.7;
+        }
+
+        .info-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            background: rgba(20, 30, 48, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 20;
+            display: none;
+        }
+
+        .info-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #ffcc00;
+            text-align: center;
+        }
+
+        .info-content {
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .info-highlight {
+            color: #00ffcc;
+            font-weight: 500;
+        }
+
+        .key-metrics {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 80px;
+        }
+
+        .metric-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 65, 108, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 65, 108, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 65, 108, 0); }
+        }
+
+        @keyframes dash {
+            to { stroke-dashoffset: 1000; }
+        }
+
+        @media (max-width: 768px) {
+            .diagram-container {
+                transform: scale(0.8);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Docsity Sprint Platform</h1>
+            <p class="subtitle">An integrated learning solution combining Scrum methodology, adaptive learning, and analytics</p>
+        </header>
+        
+        <div class="diagram-container">
+            <!-- Platform -->
+            <div class="platform" id="platform">
+                <i class="fas fa-rocket"></i>
+                <div class="module-title">Docsity Sprint Platform</div>
+            </div>
+            
+            <!-- Modules -->
+            <div class="module scrum-module" id="scrum">
+                <i class="fas fa-calendar"></i>
+                <div class="module-title">Scrum Framework</div>
+                <div class="module-subtitle">Educational Planning</div>
+            </div>
+            
+            <div class="module leitner-module" id="leitner">
+                <i class="fas fa-brain"></i>
+                <div class="module-title">Leitner Engine</div>
+                <div class="module-subtitle">Adaptive Learning</div>
+            </div>
+            
+            <div class="module analytics-module" id="analytics">
+                <i class="fas fa-chart-line"></i>
+                <div class="module-title">Analytics Dashboard</div>
+                <div class="module-subtitle">Growth Tracking</div>
+            </div>
+            
+            <!-- Scrum Features -->
+            <div class="feature" style="top: 280px; left: 120px;">
+                <i class="fas fa-tasks"></i>
+                <div class="feature-title">Weekly Sprints</div>
+            </div>
+            
+            <div class="feature" style="top: 280px; left: 180px;">
+                <i class="fas fa-columns"></i>
+                <div class="feature-title">Kanban Board</div>
+            </div>
+            
+            <div class="feature" style="top: 230px; left: 150px;">
+                <i class="fas fa-users"></i>
+                <div class="feature-title">Virtual Standups</div>
+            </div>
+            
+            <div class="feature" style="top: 230px; left: 210px;">
+                <i class="fas fa-comments"></i>
+                <div class="feature-title">Exam Reviews</div>
+            </div>
+            
+            <!-- Leitner Features -->
+            <div class="feature" style="top: 280px; right: 210px;">
+                <i class="fas fa-id-card"></i>
+                <div class="feature-title">Smart Cards</div>
+            </div>
+            
+            <div class="feature" style="top: 280px; right: 150px;">
+                <i class="fas fa-sync"></i>
+                <div class="feature-title">Spaced Repetition</div>
+            </div>
+            
+            <div class="feature" style="top: 230px; right: 180px;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div class="feature-title">Weakness Predictor</div>
+            </div>
+            
+            <div class="feature" style="top: 230px; right: 120px;">
+                <i class="fas fa-bell"></i>
+                <div class="feature-title">Review Alerts</div>
+            </div>
+            
+            <!-- Analytics Features -->
+            <div class="feature" style="top: 420px; left: 280px;">
+                <i class="fas fa-line-chart"></i>
+                <div class="feature-title">Mastery Curve</div>
+            </div>
+            
+            <div class="feature" style="top: 420px; left: 450px;">
+                <i class="fas fa-clock"></i>
+                <div class="feature-title">Focus Metrics</div>
+            </div>
+            
+            <div class="feature" style="top: 470px; left: 360px;">
+                <i class="fas fa-calculator"></i>
+                <div class="feature-title">Score Forecast</div>
+            </div>
+            
+            <div class="feature" style="top: 470px; left: 520px;">
+                <i class="fas fa-lightbulb"></i>
+                <div class="feature-title">Smart Recommendations</div>
+            </div>
+            
+            <!-- User -->
+            <div class="user" id="user">
+                <i class="fas fa-user"></i>
+                <div class="module-title">Student</div>
+            </div>
+            
+            <!-- Connections -->
+            <svg class="connections" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet"></svg>
+            
+            <!-- Info Panel -->
+            <div class="info-panel" id="infoPanel">
+                <div class="info-title" id="infoTitle">Platform Overview</div>
+                <div class="info-content" id="infoContent">
+                    The Docsity Sprint Platform integrates three powerful systems to create a comprehensive learning solution. 
+                    <span class="info-highlight">Click on any component</span> to learn more about its features and benefits.
+                </div>
+                <div class="key-metrics">
+                    <div class="metric">
+                        <div class="metric-value">30%</div>
+                        <div class="metric-label">Study Time Reduction</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">45%</div>
+                        <div class="metric-label">Engagement Increase</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">90%+</div>
+                        <div class="metric-label">Prediction Accuracy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const svg = document.querySelector('.connections');
+            const infoPanel = document.getElementById('infoPanel');
+            const infoTitle = document.getElementById('infoTitle');
+            const infoContent = document.getElementById('infoContent');
+            
+            // Define connection points
+            const connections = [
+                // Platform to modules
+                { from: 'platform', to: 'scrum', class: 'connection-main' },
+                { from: 'platform', to: 'leitner', class: 'connection-main' },
+                { from: 'platform', to: 'analytics', class: 'connection-main' },
+                
+                // User to modules
+                { from: 'user', to: 'scrum', class: 'connection' },
+                { from: 'user', to: 'leitner', class: 'connection' },
+                { from: 'user', to: 'analytics', class: 'connection' },
+                
+                // Feedback loops
+                { from: 'analytics', to: 'leitner', class: 'connection' },
+                { from: 'leitner', to: 'scrum', class: 'connection' },
+                
+                // Highlights
+                { from: 'analytics', to: 'leitner', class: 'connection-highlight' },
+                { from: 'leitner', to: 'scrum', class: 'connection-highlight' }
+            ];
+            
+            // Draw connections
+            connections.forEach(conn => {
+                const fromEl = document.getElementById(conn.from);
+                const toEl = document.getElementById(conn.to);
+                
+                if (fromEl && toEl) {
+                    const fromRect = fromEl.getBoundingClientRect();
+                    const toRect = toEl.getBoundingClientRect();
+                    const containerRect = svg.getBoundingClientRect();
+                    
+                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    const d = `M${fromRect.left + fromRect.width/2 - containerRect.left},${fromRect.top + fromRect.height/2 - containerRect.top} 
+                               C${fromRect.left + fromRect.width/2 - containerRect.left},${(fromRect.top + toRect.top)/2 - containerRect.top + 100} 
+                               ${toRect.left + toRect.width/2 - containerRect.left},${(fromRect.top + toRect.top)/2 - containerRect.top - 100} 
+                               ${toRect.left + toRect.width/2 - containerRect.left},${toRect.top + toRect.height/2 - containerRect.top}`;
+                    
+                    path.setAttribute('d', d);
+                    path.setAttribute('class', conn.class);
+                    svg.appendChild(path);
+                }
+            });
+            
+            // Add interactivity to components
+            const components = document.querySelectorAll('.platform, .module, .feature, .user');
+            
+            components.forEach(comp => {
+                comp.addEventListener('click', function() {
+                    // Reset all components
+                    components.forEach(c => c.style.opacity = '0.7');
+                    this.style.opacity = '1';
+                    this.style.zIndex = '20';
+                    
+                    // Show info based on clicked component
+                    const id = this.id;
+                    
+                    switch(id) {
+                        case 'platform':
+                            infoTitle.textContent = 'Docsity Sprint Platform';
+                            infoContent.innerHTML = 'The central hub that integrates all learning components. This platform uses <span class="info-highlight">AI-driven algorithms</span> to personalize the educational experience and optimize study outcomes.';
+                            break;
+                        case 'scrum':
+                            infoTitle.textContent = 'Educational Scrum Framework';
+                            infoContent.innerHTML = 'Adapts agile methodology for learning. Breaks curriculum into manageable <span class="info-highlight">weekly sprints</span> with clear objectives and progress tracking.';
+                            break;
+                        case 'leitner':
+                            infoTitle.textContent = 'Adaptive Leitner Engine';
+                            infoContent.innerHTML = 'An intelligent spaced repetition system that uses <span class="info-highlight">machine learning</span> to determine optimal review intervals based on individual performance.';
+                            break;
+                        case 'analytics':
+                            infoTitle.textContent = 'Growth Analytics Dashboard';
+                            infoContent.innerHTML = 'Provides real-time insights into learning progress with <span class="info-highlight">predictive analytics</span> to forecast exam performance and identify areas for improvement.';
+                            break;
+                        case 'user':
+                            infoTitle.textContent = 'Student Experience';
+                            infoContent.innerHTML = 'Learners interact with the platform through an intuitive interface that adapts to their progress and provides <span class="info-highlight">personalized recommendations</span> for optimal study outcomes.';
+                            break;
+                        default:
+                            infoTitle.textContent = 'Feature Details';
+                            infoContent.innerHTML = 'Each component of the Docsity platform works synergistically to create a comprehensive learning ecosystem.';
+                    }
+                    
+                    infoPanel.style.display = 'block';
+                });
+            });
+            
+            // Hide info panel when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.platform, .module, .feature, .user, .info-panel')) {
+                    infoPanel.style.display = 'none';
+                    components.forEach(c => c.style.opacity = '1');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
