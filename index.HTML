@@ -1,558 +1,590 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Resume Diagram</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shakour Alishahi - Resume & Cover Letter</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            color: #fff;
-        }
+  * {
+    box-sizing: border-box;
+  }
 
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            background: rgba(25, 35, 60, 0.85);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+    color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+  }
 
-        header {
-            background: linear-gradient(90deg, #6a11cb, #2575fc);
-            padding: 25px 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+  .container {
+    max-width: 900px;
+    width: 100%;
+    background: rgba(25, 35, 60, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+    padding: 30px 40px;
+  }
 
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top right, rgba(255,255,255,0.2), transparent);
-            pointer-events: none;
-        }
+  header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
+  header h1 {
+    font-weight: 600;
+    font-size: 2.8rem;
+    margin-bottom: 5px;
+    color: #ffcc00;
+  }
 
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 700px;
-            margin: 0 auto;
-        }
+  header p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    color: #ccc;
+  }
 
-        .diagram-container {
-            padding: 30px;
-            position: relative;
-            min-height: 600px;
-        }
+  nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
 
-        .platform {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 100px;
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 10px 25px rgba(255, 65, 108, 0.4);
-            z-index: 10;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            animation: pulse 3s infinite;
-        }
+  nav button {
+    background: transparent;
+    border: 2px solid #ffcc00;
+    color: #ffcc00;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 
-        .platform:hover {
-            transform: translateX(-50%) scale(1.05);
-            box-shadow: 0 15px 35px rgba(255, 65, 108, 0.6);
-        }
+  nav button.active,
+  nav button:hover {
+    background-color: #ffcc00;
+    color: #1a2a6c;
+  }
 
-        .platform i {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
+  .language-toggle {
+    text-align: center;
+    margin-bottom: 30px;
+  }
 
-        .module {
-            position: absolute;
-            width: 220px;
-            height: 80px;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 5;
-        }
+  .language-toggle button {
+    background: transparent;
+    border: 2px solid #ffcc00;
+    color: #ffcc00;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 
-        .module:hover {
-            transform: scale(1.08);
-            z-index: 15;
-        }
+  .language-toggle button.active,
+  .language-toggle button:hover {
+    background-color: #ffcc00;
+    color: #1a2a6c;
+  }
 
-        .module-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
+  main {
+    color: #eee;
+    line-height: 1.6;
+  }
 
-        .module-subtitle {
-            font-size: 0.8rem;
-            opacity: 0.9;
-        }
+  h2 {
+    color: #ffcc00;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
 
-        .scrum-module {
-            top: 180px;
-            left: 150px;
-            background: linear-gradient(135deg, #ffb347, #ffcc33);
-        }
+  h3 {
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #ffd966;
+  }
 
-        .leitner-module {
-            top: 180px;
-            right: 150px;
-            background: linear-gradient(135deg, #00b09b, #96c93d);
-        }
+  p, li {
+    font-weight: 300;
+    font-size: 1rem;
+  }
 
-        .analytics-module {
-            top: 350px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #5c6bc0, #7986cb);
-        }
+  ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+  }
 
-        .feature {
-            position: absolute;
-            width: 160px;
-            height: 70px;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            z-index: 3;
-        }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
 
-        .feature:hover {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 0.2);
-            z-index: 15;
-        }
+  th, td {
+    border: 1px solid #444;
+    padding: 8px 12px;
+    text-align: left;
+  }
 
-        .feature-title {
-            font-weight: 500;
-            font-size: 0.9rem;
-            margin-bottom: 3px;
-        }
+  th {
+    background-color: #333;
+    color: #ffcc00;
+  }
 
-        .feature-subtitle {
-            font-size: 0.7rem;
-            opacity: 0.8;
-        }
+  a {
+    color: #ffcc00;
+    text-decoration: none;
+  }
 
-        .user {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #7f00ff, #e100ff);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 10px 25px rgba(127, 0, 255, 0.4);
-            z-index: 10;
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
+  a:hover {
+    text-decoration: underline;
+  }
 
-        .user:hover {
-            transform: translateX(-50%) scale(1.1);
-            box-shadow: 0 15px 35px rgba(127, 0, 255, 0.6);
-        }
+  /* Scrollbar for main content */
+  main {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
 
-        .user i {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container {
+      padding: 20px;
+    }
 
-        .connections {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .connection {
-            stroke: rgba(255, 255, 255, 0.3);
-            stroke-width: 2;
-            fill: none;
-            stroke-dasharray: 5;
-            animation: dash 20s linear infinite;
-        }
-
-        .connection-main {
-            stroke: rgba(255, 255, 255, 0.5);
-            stroke-width: 3;
-        }
-
-        .connection-highlight {
-            stroke: #00ffff;
-            stroke-width: 2;
-            filter: blur(3px);
-            opacity: 0.7;
-        }
-
-        .info-panel {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 300px;
-            background: rgba(20, 30, 48, 0.9);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 20;
-            display: none;
-        }
-
-        .info-title {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: #ffcc00;
-            text-align: center;
-        }
-
-        .info-content {
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        .info-highlight {
-            color: #00ffcc;
-            font-weight: 500;
-        }
-
-        .key-metrics {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-
-        .metric {
-            text-align: center;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            width: 80px;
-        }
-
-        .metric-value {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #ff6b6b;
-        }
-
-        .metric-label {
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 65, 108, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 65, 108, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 65, 108, 0); }
-        }
-
-        @keyframes dash {
-            to { stroke-dashoffset: 1000; }
-        }
-
-        @media (max-width: 768px) {
-            .diagram-container {
-                transform: scale(0.8);
-            }
-        }
-    </style>
+    nav button, .language-toggle button {
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      margin: 0 5px;
+    }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Docsity Sprint Platform</h1>
-            <p class="subtitle">An integrated learning solution combining Scrum methodology, adaptive learning, and analytics</p>
-        </header>
-        
-        <div class="diagram-container">
-            <!-- Platform -->
-            <div class="platform" id="platform">
-                <i class="fas fa-rocket"></i>
-                <div class="module-title">Docsity Sprint Platform</div>
-            </div>
-            
-            <!-- Modules -->
-            <div class="module scrum-module" id="scrum">
-                <i class="fas fa-calendar"></i>
-                <div class="module-title">Scrum Framework</div>
-                <div class="module-subtitle">Educational Planning</div>
-            </div>
-            
-            <div class="module leitner-module" id="leitner">
-                <i class="fas fa-brain"></i>
-                <div class="module-title">Leitner Engine</div>
-                <div class="module-subtitle">Adaptive Learning</div>
-            </div>
-            
-            <div class="module analytics-module" id="analytics">
-                <i class="fas fa-chart-line"></i>
-                <div class="module-title">Analytics Dashboard</div>
-                <div class="module-subtitle">Growth Tracking</div>
-            </div>
-            
-            <!-- Scrum Features -->
-            <div class="feature" style="top: 280px; left: 120px;">
-                <i class="fas fa-tasks"></i>
-                <div class="feature-title">Weekly Sprints</div>
-            </div>
-            
-            <div class="feature" style="top: 280px; left: 180px;">
-                <i class="fas fa-columns"></i>
-                <div class="feature-title">Kanban Board</div>
-            </div>
-            
-            <div class="feature" style="top: 230px; left: 150px;">
-                <i class="fas fa-users"></i>
-                <div class="feature-title">Virtual Standups</div>
-            </div>
-            
-            <div class="feature" style="top: 230px; left: 210px;">
-                <i class="fas fa-comments"></i>
-                <div class="feature-title">Exam Reviews</div>
-            </div>
-            
-            <!-- Leitner Features -->
-            <div class="feature" style="top: 280px; right: 210px;">
-                <i class="fas fa-id-card"></i>
-                <div class="feature-title">Smart Cards</div>
-            </div>
-            
-            <div class="feature" style="top: 280px; right: 150px;">
-                <i class="fas fa-sync"></i>
-                <div class="feature-title">Spaced Repetition</div>
-            </div>
-            
-            <div class="feature" style="top: 230px; right: 180px;">
-                <i class="fas fa-exclamation-triangle"></i>
-                <div class="feature-title">Weakness Predictor</div>
-            </div>
-            
-            <div class="feature" style="top: 230px; right: 120px;">
-                <i class="fas fa-bell"></i>
-                <div class="feature-title">Review Alerts</div>
-            </div>
-            
-            <!-- Analytics Features -->
-            <div class="feature" style="top: 420px; left: 280px;">
-                <i class="fas fa-line-chart"></i>
-                <div class="feature-title">Mastery Curve</div>
-            </div>
-            
-            <div class="feature" style="top: 420px; left: 450px;">
-                <i class="fas fa-clock"></i>
-                <div class="feature-title">Focus Metrics</div>
-            </div>
-            
-            <div class="feature" style="top: 470px; left: 360px;">
-                <i class="fas fa-calculator"></i>
-                <div class="feature-title">Score Forecast</div>
-            </div>
-            
-            <div class="feature" style="top: 470px; left: 520px;">
-                <i class="fas fa-lightbulb"></i>
-                <div class="feature-title">Smart Recommendations</div>
-            </div>
-            
-            <!-- User -->
-            <div class="user" id="user">
-                <i class="fas fa-user"></i>
-                <div class="module-title">Student</div>
-            </div>
-            
-            <!-- Connections -->
-            <svg class="connections" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet"></svg>
-            
-            <!-- Info Panel -->
-            <div class="info-panel" id="infoPanel">
-                <div class="info-title" id="infoTitle">Platform Overview</div>
-                <div class="info-content" id="infoContent">
-                    The Docsity Sprint Platform integrates three powerful systems to create a comprehensive learning solution. 
-                    <span class="info-highlight">Click on any component</span> to learn more about its features and benefits.
-                </div>
-                <div class="key-metrics">
-                    <div class="metric">
-                        <div class="metric-value">30%</div>
-                        <div class="metric-label">Study Time Reduction</div>
-                    </div>
-                    <div class="metric">
-                        <div class="metric-value">45%</div>
-                        <div class="metric-label">Engagement Increase</div>
-                    </div>
-                    <div class="metric">
-                        <div class="metric-value">90%+</div>
-                        <div class="metric-label">Prediction Accuracy</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container" role="main">
+    <header>
+      <h1>Shakour Alishahi</h1>
+      <p>Market Making Systems Designer & Algorithmic Trader</p>
+    </header>
+
+    <div class="language-toggle" role="region" aria-label="Language selection">
+      <button id="lang-en" class="active" aria-pressed="true" aria-label="English language">English</button>
+      <button id="lang-it" aria-pressed="false" aria-label="Italian language">Italiano</button>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const svg = document.querySelector('.connections');
-            const infoPanel = document.getElementById('infoPanel');
-            const infoTitle = document.getElementById('infoTitle');
-            const infoContent = document.getElementById('infoContent');
-            
-            // Define connection points
-            const connections = [
-                // Platform to modules
-                { from: 'platform', to: 'scrum', class: 'connection-main' },
-                { from: 'platform', to: 'leitner', class: 'connection-main' },
-                { from: 'platform', to: 'analytics', class: 'connection-main' },
-                
-                // User to modules
-                { from: 'user', to: 'scrum', class: 'connection' },
-                { from: 'user', to: 'leitner', class: 'connection' },
-                { from: 'user', to: 'analytics', class: 'connection' },
-                
-                // Feedback loops
-                { from: 'analytics', to: 'leitner', class: 'connection' },
-                { from: 'leitner', to: 'scrum', class: 'connection' },
-                
-                // Highlights
-                { from: 'analytics', to: 'leitner', class: 'connection-highlight' },
-                { from: 'leitner', to: 'scrum', class: 'connection-highlight' }
-            ];
-            
-            // Draw connections
-            connections.forEach(conn => {
-                const fromEl = document.getElementById(conn.from);
-                const toEl = document.getElementById(conn.to);
-                
-                if (fromEl && toEl) {
-                    const fromRect = fromEl.getBoundingClientRect();
-                    const toRect = toEl.getBoundingClientRect();
-                    const containerRect = svg.getBoundingClientRect();
-                    
-                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    const d = `M${fromRect.left + fromRect.width/2 - containerRect.left},${fromRect.top + fromRect.height/2 - containerRect.top} 
-                               C${fromRect.left + fromRect.width/2 - containerRect.left},${(fromRect.top + toRect.top)/2 - containerRect.top + 100} 
-                               ${toRect.left + toRect.width/2 - containerRect.left},${(fromRect.top + toRect.top)/2 - containerRect.top - 100} 
-                               ${toRect.left + toRect.width/2 - containerRect.left},${toRect.top + toRect.height/2 - containerRect.top}`;
-                    
-                    path.setAttribute('d', d);
-                    path.setAttribute('class', conn.class);
-                    svg.appendChild(path);
-                }
-            });
-            
-            // Add interactivity to components
-            const components = document.querySelectorAll('.platform, .module, .feature, .user');
-            
-            components.forEach(comp => {
-                comp.addEventListener('click', function() {
-                    // Reset all components
-                    components.forEach(c => c.style.opacity = '0.7');
-                    this.style.opacity = '1';
-                    this.style.zIndex = '20';
-                    
-                    // Show info based on clicked component
-                    const id = this.id;
-                    
-                    switch(id) {
-                        case 'platform':
-                            infoTitle.textContent = 'Docsity Sprint Platform';
-                            infoContent.innerHTML = 'The central hub that integrates all learning components. This platform uses <span class="info-highlight">AI-driven algorithms</span> to personalize the educational experience and optimize study outcomes.';
-                            break;
-                        case 'scrum':
-                            infoTitle.textContent = 'Educational Scrum Framework';
-                            infoContent.innerHTML = 'Adapts agile methodology for learning. Breaks curriculum into manageable <span class="info-highlight">weekly sprints</span> with clear objectives and progress tracking.';
-                            break;
-                        case 'leitner':
-                            infoTitle.textContent = 'Adaptive Leitner Engine';
-                            infoContent.innerHTML = 'An intelligent spaced repetition system that uses <span class="info-highlight">machine learning</span> to determine optimal review intervals based on individual performance.';
-                            break;
-                        case 'analytics':
-                            infoTitle.textContent = 'Growth Analytics Dashboard';
-                            infoContent.innerHTML = 'Provides real-time insights into learning progress with <span class="info-highlight">predictive analytics</span> to forecast exam performance and identify areas for improvement.';
-                            break;
-                        case 'user':
-                            infoTitle.textContent = 'Student Experience';
-                            infoContent.innerHTML = 'Learners interact with the platform through an intuitive interface that adapts to their progress and provides <span class="info-highlight">personalized recommendations</span> for optimal study outcomes.';
-                            break;
-                        default:
-                            infoTitle.textContent = 'Feature Details';
-                            infoContent.innerHTML = 'Each component of the Docsity platform works synergistically to create a comprehensive learning ecosystem.';
-                    }
-                    
-                    infoPanel.style.display = 'block';
-                });
-            });
-            
-            // Hide info panel when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.platform, .module, .feature, .user, .info-panel')) {
-                    infoPanel.style.display = 'none';
-                    components.forEach(c => c.style.opacity = '1');
-                }
-            });
-        });
-    </script>
+    <nav role="navigation" aria-label="Main navigation">
+      <button id="tab-resume" class="active" aria-pressed="true" aria-controls="content-resume">Resume</button>
+      <button id="tab-cover" aria-pressed="false" aria-controls="content-cover">Cover Letter</button>
+    </nav>
+
+    <main>
+      <section id="content-resume" aria-live="polite">
+        <!-- Resume content will be injected here -->
+      </section>
+
+      <section id="content-cover" aria-live="polite" hidden>
+        <!-- Cover letter content will be injected here -->
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Content from markdown files converted to HTML (English and Italian)
+    const content = {
+      en: {
+        resume: `
+<h2>Contact</h2>
+<ul>
+  <li>Phone: +98 912 446 7903</li>
+  <li>Email: <a href="mailto:shakouralishahi@gmail.com">shakouralishahi@gmail.com</a></li>
+  <li>Location: Tehran, Iran</li>
+</ul>
+
+<h2>Professional Summary</h2>
+<p>Seasoned financial systems architect and algorithmic trading specialist with 12 years of experience in capital markets, including six years of hands-on market-making strategy execution in a top-tier brokerage. Creator of a Python-based, market-responsive decision support system (DSS) used for real-time order book analysis and liquidity optimization. Author of more than 200 published technical-analysis articles covering sector indices of the Tehran Stock Exchange. Backed by two years of project management experience leading fintech implementations and data-driven trading initiatives.</p>
+
+<h2>Core Expertise</h2>
+<ul>
+  <li>Market Maker DSS design & deployment</li>
+  <li>Algorithmic trading framework development</li>
+  <li>Certified in technical analysis and pattern recognition</li>
+  <li>Python automation for trading workflows</li>
+  <li>Spread management & liquidity optimization</li>
+  <li>Financial research & publication</li>
+</ul>
+
+<h2>Professional Experience</h2>
+
+<h3>Financial Trader & Market Making Strategist</h3>
+<p><strong>Sina Behgozin Brokerage</strong> | Oct 2018 – Present</p>
+<ul>
+  <li>Architected and launched a Python-based decision support system for real-time market making</li>
+  <li>Integrated with Tehran Stock Exchange API for live order-book analysis</li>
+  <li>Developed LSTM neural models to forecast price trends</li>
+  <li>Automated trade reporting, reconciliation, and risk controls</li>
+  <li>Optimized liquidity provision on 15+ high-volume equities</li>
+  <li>Reduced manual interventions by 80% and accelerated price feedback</li>
+  <li>Built proprietary algorithmic strategies for ETFs and large-cap stocks</li>
+  <li>Implemented VaR-based risk-management protocols</li>
+  <li>Mentored junior traders in market-making best practices</li>
+</ul>
+
+<h3>Senior Technical Analyst</h3>
+<p><strong>Donya-e-Eqtesad (World Economy Newspaper)</strong> | Aug 2020 – May 2021</p>
+<ul>
+  <li>Authored 200+ in-depth technical analysis articles on TSE sector indices</li>
+  <li>Tracked market trends in automotive, petrochemical, and banking industries</li>
+  <li>Provided actionable support/resistance signals for retail investors</li>
+</ul>
+
+<h3>Project Manager</h3>
+<p><strong>Bedaan Inc</strong> | Dec 2015 – Jan 2023</p>
+<ul>
+  <li>Managed end-to-end fintech projects from requirements gathering to deployment</li>
+  <li>Coordinated cross-functional teams on financial-system implementations</li>
+</ul>
+
+<h2>Key Projects & Repositories</h2>
+
+<h3>Market Maker Decision Support System</h3>
+<p>Python-driven trading infrastructure for market making</p>
+<ul>
+  <li>Real-time liquidity analytics & spread monitoring</li>
+  <li>Automated reconciliation & reporting workflows</li>
+  <li>Predictive alerts for volatility spikes & market anomalies</li>
+</ul>
+
+<h3>MarketMakerReporter</h3>
+<p>Automated market-making performance reporting tool<br />
+(GitHub repository: <a href="https://github.com/Shakour-Data/MarketMakerReporter" target="_blank" rel="noopener noreferrer">Shakour-Data/MarketMakerReporter</a>)</p>
+
+<h3>Project Management CLI & Workflows</h3>
+<p>Custom scripts for GitHub CLI, branching & CI/CD<br />
+(GitHub repository: <a href="https://github.com/Shakour-Data/ProjectManagement" target="_blank" rel="noopener noreferrer">Shakour-Data/ProjectManagement</a>)</p>
+
+<h3>GravityWaves</h3>
+<p>Machine-learning stock-forecasting platform<br />
+(GitHub repository: <a href="https://github.com/Shakour-Data/GravityWaves" target="_blank" rel="noopener noreferrer">Shakour-Data/GravityWaves</a>)</p>
+
+<h2>Publications</h2>
+<p>Over 200 technical-analysis articles on various Tehran Stock Exchange sector indices in Donya-e-Eqtesad newspaper.</p>
+
+<h2>Education</h2>
+<table>
+  <thead>
+    <tr><th>Degree</th><th>Institution</th><th>Year</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>MBA, Data Science & Algorithmic Trading</td><td>Alzahra University</td><td>2021</td></tr>
+    <tr><td>B.Sc. Industrial Engineering</td><td>Mazandaran University of Sci. & Tech.</td><td>2007</td></tr>
+    <tr><td>CTA Certification</td><td>National Bank of Iran Brokerage</td><td>2013</td></tr>
+  </tbody>
+</table>
+
+<h2>Technical Skills</h2>
+<ul>
+  <li>Trading Systems: Market Making · Algorithmic Execution · Liquidity Provision</li>
+  <li>Analytics: Technical Analysis (CTA) · Risk Management · Portfolio Optimization</li>
+  <li>Programming: Python (Pandas · NumPy · TensorFlow) · API Integration · Google Sheets Automation</li>
+  <li>Tools: Jira · Trello · Microsoft Excel · GitHub CLI</li>
+</ul>
+
+<h2>Languages</h2>
+<ul>
+  <li>Persian: Native</li>
+  <li>English: Professional</li>
+  <li>Arabic: Basic</li>
+</ul>
+        `,
+        cover: `
+<h2>Cover Letter - Product & Operations Lead at Docsity</h2>
+<p>Dear Hiring Team at Docsity,</p>
+<p>I am writing to express my interest in the Product & Operations Lead position at Docsity. With over twelve years of experience in designing financial systems, executing algorithmic trading strategies, and managing fintech projects, I am confident in my ability to contribute effectively to your product development and operational success.</p>
+<p>My background includes leading the architecture of a Python-based Decision Support System for real-time market-making, developing LSTM-based models for price trend forecasting, and managing cross-functional teams on data-driven trading initiatives. These projects - particularly GravityWaves, my AI-based forecasting platform - demonstrate my ability to translate market data into actionable product features with precision and strategic insight.</p>
+<p>Though I am currently based in Iran, I am actively preparing for relocation to Italy, where my sister lives in Turin. Her presence provides a stable and supportive foundation for cultural and logistical integration, ensuring minimal disruption during onboarding. I view this relocation not as a challenge, but as an opportunity to bring global perspective, adaptability, and resilience to your team.</p>
+<p>To provide clarity around my professional positioning, I offer the following overview of my candidacy:</p>
+<table>
+  <thead>
+    <tr><th>Strengths</th><th>Weaknesses</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Extensive experience in algorithmic trading and product design</td><td>Lack of fluency in Italian (currently learning)</td></tr>
+    <tr><td>Proven execution of AI-driven forecasting platforms</td><td>Residency outside Italy requiring relocation</td></tr>
+    <tr><td>Proficiency in Python, GitHub CLI, CI/CD automation</td><td>Limited work experience in European markets</td></tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr><th>Opportunities</th><th>Threats</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Transfer of specialized insights from emerging markets</td><td>Visa process and potential onboarding delays</td></tr>
+    <tr><td>Family support in Turin enabling smooth transition</td><td>Initial limitations in local networking and integration</td></tr>
+    <tr><td>Contribution to Docsity’s AI and data-oriented projects</td><td>Rapid adaptation expected within a dynamic work culture</td></tr>
+  </tbody>
+</table>
+<h3>Turning Challenges into Strategic Advantages</h3>
+<ul>
+  <li><strong>Language</strong>: I am actively investing in Italian language acquisition through daily practice and immersive learning resources.</li>
+  <li><strong>Relocation logistics</strong>: With my sister’s presence in Turin and structured planning underway, I expect a smooth transition to Italy.</li>
+  <li><strong>Lack of EU experience</strong>: My expertise in emerging markets provides a complementary viewpoint that enriches product strategy.</li>
+  <li><strong>Networking</strong>: I plan to accelerate integration into the Italian professional community with the help of personal and industry channels.</li>
+</ul>
+<p>Docsity’s commitment to meaningful learning and data-powered innovation strongly aligns with my professional values. I am excited to contribute not only technical knowledge but also strategic leadership and international perspective to your team. Thank you for considering my application.</p>
+<p>Sincerely,<br /><strong>Shakour Alishahi</strong><br />Email: <a href="mailto:shakouralishahi@gmail.com">shakouralishahi@gmail.com</a><br />Phone: +98 912 446 7903<br />GitHub: <a href="https://github.com/Shakour-Data" target="_blank" rel="noopener noreferrer">Shakour-Data</a></p>
+        `
+      },
+      it: {
+        resume: `
+<h2>Contatti</h2>
+<ul>
+  <li>Telefono: +98 912 446 7903</li>
+  <li>Email: <a href="mailto:shakouralishahi@gmail.com">shakouralishahi@gmail.com</a></li>
+  <li>Località: Teheran, Iran</li>
+</ul>
+
+<h2>Sintesi Professionale</h2>
+<p>Architetto di sistemi finanziari e specialista in trading algoritmico con 12 anni di esperienza nei mercati dei capitali, inclusi sei anni di esecuzione pratica di strategie di market-making in una delle principali società di intermediazione. Creatore di un sistema di supporto decisionale (DSS) basato su Python, reattivo al mercato, utilizzato per l'analisi in tempo reale del libro ordini e l'ottimizzazione della liquidità. Autore di oltre 200 articoli di analisi tecnica pubblicati, che coprono gli indici settoriali della Borsa di Teheran. Supportato da due anni di esperienza nella gestione di progetti fintech e iniziative di trading basate sui dati.</p>
+
+<h2>Competenze Chiave</h2>
+<ul>
+  <li>Progettazione e implementazione di DSS per Market Maker</li>
+  <li>Sviluppo di framework per trading algoritmico</li>
+  <li>Certificato in analisi tecnica e riconoscimento di pattern</li>
+  <li>Automazione Python per flussi di lavoro di trading</li>
+  <li>Gestione degli spread e ottimizzazione della liquidità</li>
+  <li>Ricerca finanziaria e pubblicazioni</li>
+</ul>
+
+<h2>Esperienza Professionale</h2>
+
+<h3>Trader Finanziario & Stratega di Market Making</h3>
+<p><strong>Sina Behgozin Brokerage</strong> | Ott 2018 – Presente</p>
+<ul>
+  <li>Progettato e lanciato un sistema di supporto decisionale basato su Python per il market making in tempo reale</li>
+  <li>Integrato con API della Borsa di Teheran per l'analisi live del libro ordini</li>
+  <li>Sviluppato modelli neurali LSTM per prevedere le tendenze dei prezzi</li>
+  <li>Automatizzato reportistica, riconciliazione e controlli di rischio</li>
+  <li>Ottimizzato la fornitura di liquidità su oltre 15 azioni ad alto volume</li>
+  <li>Ridotto le interventi manuali dell'80% e accelerato il feedback dei prezzi</li>
+  <li>Creato strategie algoritmiche proprietarie per ETF e azioni large-cap</li>
+  <li>Implementato protocolli di gestione del rischio basati su VaR</li>
+  <li>Mentore per trader junior nelle migliori pratiche di market making</li>
+</ul>
+
+<h3>Analista Tecnico Senior</h3>
+<p><strong>Donya-e-Eqtesad (Giornale Economia Mondiale)</strong> | Ago 2020 – Mag 2021</p>
+<ul>
+  <li>Autore di oltre 200 articoli di analisi tecnica approfondita sugli indici settoriali della Borsa di Teheran</li>
+  <li>Monitoraggio delle tendenze di mercato nei settori automotive, petrolchimico e bancario</li>
+  <li>Fornitura di segnali di supporto/resistenza azionabili per investitori retail</li>
+</ul>
+
+<h3>Project Manager</h3>
+<p><strong>Bedaan Inc</strong> | Dic 2015 – Gen 2023</p>
+<ul>
+  <li>Gestione end-to-end di progetti fintech dalla raccolta requisiti al deployment</li>
+  <li>Coordinamento di team cross-funzionali per implementazioni di sistemi finanziari</li>
+</ul>
+
+<h2>Progetti Chiave & Repository</h2>
+
+<h3>Market Maker Decision Support System</h3>
+<p>Infrastruttura di trading basata su Python per market making</p>
+<ul>
+  <li>Analisi della liquidità in tempo reale e monitoraggio degli spread</li>
+  <li>Workflow automatizzati di riconciliazione e reportistica</li>
+  <li>Avvisi predittivi per picchi di volatilità e anomalie di mercato</li>
+</ul>
+
+<h3>MarketMakerReporter</h3>
+<p>Strumento automatizzato di reportistica delle performance di market making<br />
+(Repository GitHub: <a href="https://github.com/Shakour-Data/MarketMakerReporter" target="_blank" rel="noopener noreferrer">Shakour-Data/MarketMakerReporter</a>)</p>
+
+<h3>Project Management CLI & Workflows</h3>
+<p>Script personalizzati per GitHub CLI, branching e CI/CD<br />
+(Repository GitHub: <a href="https://github.com/Shakour-Data/ProjectManagement" target="_blank" rel="noopener noreferrer">Shakour-Data/ProjectManagement</a>)</p>
+
+<h3>GravityWaves</h3>
+<p>Piattaforma di previsione azionaria basata su machine learning<br />
+(Repository GitHub: <a href="https://github.com/Shakour-Data/GravityWaves" target="_blank" rel="noopener noreferrer">Shakour-Data/GravityWaves</a>)</p>
+
+<h2>Pubblicazioni</h2>
+<p>Oltre 200 articoli di analisi tecnica su vari indici settoriali della Borsa di Teheran pubblicati sul giornale Donya-e-Eqtesad.</p>
+
+<h2>Istruzione</h2>
+<table>
+  <thead>
+    <tr><th>Titolo di Studio</th><th>Istituzione</th><th>Anno</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>MBA, Data Science & Trading Algoritmico</td><td>Alzahra University</td><td>2021</td></tr>
+    <tr><td>Laurea in Ingegneria Industriale</td><td>Mazandaran University of Sci. & Tech.</td><td>2007</td></tr>
+    <tr><td>Certificazione CTA</td><td>National Bank of Iran Brokerage</td><td>2013</td></tr>
+  </tbody>
+</table>
+
+<h2>Competenze Tecniche</h2>
+<ul>
+  <li>Sistemi di Trading: Market Making · Esecuzione Algoritmica · Fornitura di Liquidità</li>
+  <li>Analisi: Analisi Tecnica (CTA) · Gestione del Rischio · Ottimizzazione del Portafoglio</li>
+  <li>Programmazione: Python (Pandas · NumPy · TensorFlow) · Integrazione API · Automazione Google Sheets</li>
+  <li>Strumenti: Jira · Trello · Microsoft Excel · GitHub CLI</li>
+</ul>
+
+<h2>Lingue</h2>
+<ul>
+  <li>Persiano: Madrelingua</li>
+  <li>Inglese: Professionale</li>
+  <li>Arabo: Base</li>
+</ul>
+        `,
+        cover: `
+<h2>Lettera di Presentazione - Responsabile Prodotto e Operazioni presso Docsity</h2>
+<p>Gentile Team di Selezione di Docsity,</p>
+<p>Scrivo per esprimere il mio interesse per la posizione di Responsabile Prodotto e Operazioni presso Docsity. Con oltre dodici anni di esperienza nella progettazione di sistemi finanziari, nell'esecuzione di strategie di trading algoritmico e nella gestione di progetti fintech, sono fiducioso nella mia capacità di contribuire efficacemente allo sviluppo del prodotto e al successo operativo della vostra azienda.</p>
+<p>Il mio background include la guida dell'architettura di un Sistema di Supporto alle Decisioni basato su Python per il market-making in tempo reale, lo sviluppo di modelli basati su LSTM per la previsione delle tendenze dei prezzi e la gestione di team cross-funzionali su iniziative di trading basate sui dati. Questi progetti - in particolare GravityWaves, la mia piattaforma di previsione basata su AI - dimostrano la mia capacità di tradurre i dati di mercato in funzionalità di prodotto azionabili con precisione e visione strategica.</p>
+<p>Sebbene attualmente risieda in Iran, sto attivamente preparando il trasferimento in Italia, dove vive mia sorella a Torino. La sua presenza fornisce una base stabile e di supporto per l'integrazione culturale e logistica, garantendo una minima interruzione durante l'onboarding. Vedo questo trasferimento non come una sfida, ma come un'opportunità per portare una prospettiva globale, adattabilità e resilienza al vostro team.</p>
+<p>Per fornire chiarezza riguardo alla mia posizione professionale, offro la seguente panoramica della mia candidatura:</p>
+<table>
+  <thead>
+    <tr><th>Punti di Forza</th><th>Debolezze</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Ampia esperienza nel trading algoritmico e nella progettazione di prodotti</td><td>Mancanza di padronanza della lingua italiana (attualmente in fase di apprendimento)</td></tr>
+    <tr><td>Esecuzione comprovata di piattaforme di previsione basate su AI</td><td>Residenza fuori dall'Italia che richiede trasferimento</td></tr>
+    <tr><td>Competenza in Python, GitHub CLI, automazione CI/CD</td><td>Esperienza lavorativa limitata nei mercati europei</td></tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr><th>Opportunità</th><th>Minacce</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Trasferimento di conoscenze specializzate da mercati emergenti</td><td>Processo di visto e potenziali ritardi nell'onboarding</td></tr>
+    <tr><td>Supporto familiare a Torino che facilita una transizione fluida</td><td>Limitazioni iniziali nel networking e integrazione locale</td></tr>
+    <tr><td>Contributo ai progetti AI e orientati ai dati di Docsity</td><td>Adattamento rapido richiesto in un ambiente di lavoro dinamico</td></tr>
+  </tbody>
+</table>
+<h3>Trasformare le Sfide in Vantaggi Strategici</h3>
+<ul>
+  <li><strong>Lingua</strong>: Sto investendo attivamente nell'acquisizione della lingua italiana attraverso pratica quotidiana e risorse di apprendimento immersive.</li>
+  <li><strong>Logistica del trasferimento</strong>: Con la presenza di mia sorella a Torino e una pianificazione strutturata in corso, prevedo una transizione senza intoppi in Italia.</li>
+  <li><strong>Mancanza di esperienza nell'UE</strong>: La mia esperienza nei mercati emergenti offre un punto di vista complementare che arricchisce la strategia di prodotto.</li>
+  <li><strong>Networking</strong>: Ho in programma di accelerare l'integrazione nella comunità professionale italiana con l'aiuto di canali personali e di settore.</li>
+</ul>
+<p>L'impegno di Docsity per un apprendimento significativo e un'innovazione basata sui dati si allinea fortemente con i miei valori professionali. Sono entusiasta di poter contribuire non solo con conoscenze tecniche, ma anche con leadership strategica e una prospettiva internazionale al vostro team. Grazie per aver considerato la mia candidatura.</p>
+<p>Cordiali saluti,<br /><strong>Shakour Alishahi</strong><br />Email: <a href="mailto:shakouralishahi@gmail.com">shakouralishahi@gmail.com</a><br />Telefono: +98 912 446 7903<br />GitHub: <a href="https://github.com/Shakour-Data" target="_blank" rel="noopener noreferrer">Shakour-Data</a></p>
+        `
+      }
+    };
+
+    // Elements
+    const langEnBtn = document.getElementById('lang-en');
+    const langItBtn = document.getElementById('lang-it');
+    const tabResumeBtn = document.getElementById('tab-resume');
+    const tabCoverBtn = document.getElementById('tab-cover');
+    const contentResume = document.getElementById('content-resume');
+    const contentCover = document.getElementById('content-cover');
+
+    // State
+    let currentLang = 'en';
+    let currentTab = 'resume';
+
+    // Functions to update content
+    function updateContent() {
+      if (currentTab === 'resume') {
+        contentResume.hidden = false;
+        contentCover.hidden = true;
+        contentResume.innerHTML = content[currentLang].resume;
+      } else {
+        contentResume.hidden = true;
+        contentCover.hidden = false;
+        contentCover.innerHTML = content[currentLang].cover;
+      }
+    }
+
+    function updateLangButtons() {
+      if (currentLang === 'en') {
+        langEnBtn.classList.add('active');
+        langEnBtn.setAttribute('aria-pressed', 'true');
+        langItBtn.classList.remove('active');
+        langItBtn.setAttribute('aria-pressed', 'false');
+      } else {
+        langItBtn.classList.add('active');
+        langItBtn.setAttribute('aria-pressed', 'true');
+        langEnBtn.classList.remove('active');
+        langEnBtn.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    function updateTabButtons() {
+      if (currentTab === 'resume') {
+        tabResumeBtn.classList.add('active');
+        tabResumeBtn.setAttribute('aria-pressed', 'true');
+        tabCoverBtn.classList.remove('active');
+        tabCoverBtn.setAttribute('aria-pressed', 'false');
+      } else {
+        tabCoverBtn.classList.add('active');
+        tabCoverBtn.setAttribute('aria-pressed', 'true');
+        tabResumeBtn.classList.remove('active');
+        tabResumeBtn.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    // Event listeners
+    langEnBtn.addEventListener('click', () => {
+      if (currentLang !== 'en') {
+        currentLang = 'en';
+        updateLangButtons();
+        updateContent();
+      }
+    });
+
+    langItBtn.addEventListener('click', () => {
+      if (currentLang !== 'it') {
+        currentLang = 'it';
+        updateLangButtons();
+        updateContent();
+      }
+    });
+
+    tabResumeBtn.addEventListener('click', () => {
+      if (currentTab !== 'resume') {
+        currentTab = 'resume';
+        updateTabButtons();
+        updateContent();
+      }
+    });
+
+    tabCoverBtn.addEventListener('click', () => {
+      if (currentTab !== 'cover') {
+        currentTab = 'cover';
+        updateTabButtons();
+        updateContent();
+      }
+    });
+
+    // Initialize content
+    updateLangButtons();
+    updateTabButtons();
+    updateContent();
+  </script>
 </body>
 </html>
